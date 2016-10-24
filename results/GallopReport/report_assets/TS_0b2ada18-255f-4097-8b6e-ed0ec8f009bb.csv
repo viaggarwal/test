@@ -1,0 +1,2 @@
+CHROME,HW0588,XP,paytmFailingSpec,,Open URL,PASS,Successfully Opened URL: https://paytm.com/,18-10-2016 15:16:57:271,http://abahirat:Password%232016%21@10.0.7.131:85/natgas2#/home,paytm,details_result_report_TS_0b2ada18-255f-4097-8b6e-ed0ec8f009bb
+CHROME,HW0588,XP,paytmFailingSpec,,PerformedClick,FAIL:Scr_3358_10-18-2016-15H_17M_6S.png,Performed Clicking of clicking login link,18-10-2016 15:17:06:556,http://abahirat:Password%232016%21@10.0.7.131:85/natgas2#/home,paytm,details_result_report_TS_0b2ada18-255f-4097-8b6e-ed0ec8f009bb

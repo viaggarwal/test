@@ -1,0 +1,301 @@
+<html><head>
+      <meta charset="UTF-8">
+      <title>Sprague Execution Results</title>
+      <style type="text/css">
+            body {
+                  background-color: #FFFFFF;
+                  font-family: Verdana, Geneva, sans-serif;
+                  text-align: center;
+            }
+            
+            small {
+                  font-size: 0.7em;
+            }
+            
+            table {
+                  box-shadow: 9px 9px 10px 4px #BDBDBD;
+                  border: 0px solid #4D7C7B;
+                  border-collapse: collapse;
+                  border-spacing: 0px;
+                  width: 1000px;
+                  margin-left: auto;
+                  margin-right: auto;
+            }
+            
+            tr.heading {
+                  background-color: #041944;
+                  color: #FFFFFF;
+                  font-size: 0.7em;
+                  font-weight: bold;
+                  background: -o-linear-gradient(bottom, #999999 5%, #000000 100%);
+                  background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #999999), color-stop(1, #000000));
+                  background: -moz-linear-gradient( center top, #999999 5%, #000000 100%);
+                  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr=#999999, endColorstr=#000000);
+                  background: -o-linear-gradient(top, #999999, 000000);
+            }
+            
+            tr.subheading {
+                  background-color: #FFFFFF;
+                  color: #000000;
+                  font-weight: bold;
+                  font-size: 0.7em;
+                  text-align: justify;
+            }
+            
+            tr.section {
+                  background-color: #A4A4A4;
+                  color: #333300;
+                  cursor: pointer;
+                  font-weight: bold;
+                  font-size: 0.7em;
+                  text-align: justify;
+                  background: -o-linear-gradient(bottom, #56aaff 5%, #e5e5e5 100%);
+                  background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #56aaff), color-stop(1, #e5e5e5));
+                  background: -moz-linear-gradient( center top, #56aaff 5%, #e5e5e5 100%);
+                  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr=#56aaff, endColorstr=#e5e5e5);
+                  background: -o-linear-gradient(top, #56aaff, e5e5e5);
+            }
+			tr.filter {
+                  background-color: #A4A4A4;
+                  color: #333300;
+                  cursor: pointer;
+                  font-weight: bold;
+                  font-size: 0.7em;
+                  text-align: justify;
+                  background: -o-linear-gradient(bottom, #56aaff 5%, #e5e5e5 100%);
+                  background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #56aaff), color-stop(1, #e5e5e5));
+                  background: -moz-linear-gradient( center top, #56aaff 5%, #e5e5e5 100%);
+                  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr=#56aaff, endColorstr=#e5e5e5);
+                  background: -o-linear-gradient(top, #56aaff, e5e5e5);
+            }
+            
+            tr.subsection {
+                  cursor: pointer;
+            }
+            
+            tr.content {
+                  background-color: #e3e3e3;
+                  color: #000000;
+                  font-size: 0.7em;
+                  display: table-row;
+            }
+            
+            tr.content2 {
+                  background-color: #E1E1E1;
+                  border: 1px solid #4D7C7B;
+                  color: #000000;
+                  font-size: 0.75em;
+                  display: table-row;
+            }
+            tr.content2_pass {
+                  background-color: #E1E1E1;
+                  border: 1px solid #4D7C7B;
+                  color: #000000;
+                  font-size: 0.75em;
+                  display: table-row;
+            }
+            
+            tr.content2_fail {
+                  background-color: #E1E1E1;
+                  border: 1px solid #4D7C7B;
+                  color: #000000;
+                  font-size: 0.75em;
+                  display: table-row;
+            }
+            
+            td,
+            th {
+                  padding: 5px;
+                  border: 1px solid #4D7C7B;
+                  text-align: inherit /;
+            }
+            
+            th.Logos {
+                  padding: 5px;
+                  border: 0px solid #4D7C7B;
+                  text-align: inherit /;
+            }
+            
+            td.justified {
+                  text-align: justify;
+            }
+            
+            td.pass {
+                  font-weight: bold;
+                  color: green;
+            }
+            
+            td.fail {
+                  font-weight: bold;
+                  color: red;
+            }
+            
+            td.done,
+            td.screenshot {
+                  font-weight: bold;
+                  color: black;
+            }
+            
+            td.debug {
+                  font-weight: bold;
+                  color: blue;
+            }
+            
+            td.warning {
+                  font-weight: bold;
+                  color: orange;
+            }
+      </style>
+      <script>
+            function toggleMenu(objID) { if (!document.getElementById) return; var ob = document.getElementById(objID).style; if(ob.display === 'none') { try { ob.display='table-row-group'; } catch(ex) { ob.display='block'; } } else { ob.display='none'; } } function toggleSubMenu(objId) { for(i=1; i<10000; i++) { var ob = document.getElementById(objId.concat(i)); if(ob === null) { break; } if(ob.style.display === 'none') { try { ob.style.display='table-row'; } catch(ex) { ob.style.display='block'; } } else { ob.style.display='none'; } } }
+      </script>
+      <script src="../report_assets/jquery-2.2.4.min.js"></script>
+      <script type="text/javascript">
+            function showFail(){
+                  $('tbody tr.content2_pass').hide()
+                  $('tbody tr.section').show()
+                  $('tbody tr.content2_fail').show()
+                  
+             }
+             function showPass(){
+                  $('tbody tr.content2_pass').show()
+                  $('tbody tr.section').show()
+                  $('tbody tr.content2_fail').hide()
+                  
+             }
+             function showAll(){
+                  $('tbody tr.content2_pass').show()
+                  $('tbody tr.section').show()
+                  $('tbody tr.content2_fail').show()
+                  
+             }
+			 function getParam() {
+                   var idx = document.URL.indexOf('?');
+                   var params;
+
+                   if (idx != -1) {
+                         var pairs = document.URL.substring(idx + 1, document.URL.length);
+                         //     for (var i=0; i<pairs.length; i++) {
+                         nameVal = pairs.split('=');
+                         params = nameVal[1];
+                         //     }
+                   }
+                   return params;
+             }
+             
+             function showList(){
+                   var TCID=getParam();
+                   showTC(TCID);
+             }
+             
+             function showTC(TCID){
+                  if(TCID!='all'){   
+                  $('tbody[id="SignIn_Form_Entry0"] tr:has([id="'+TCID+'"])').show() 
+                  $('tbody[id="SignIn_Form_Entry0"] tr:not([id="'+TCID+'"])').hide()
+                  // $('tbody[id="SignIn_Form_Entry0"] tr.filter').show()
+                  $('tbody[id="SignIn_Form_Entry0"] tr.filter').hide()                  
+                  $('table[id="footer"]').hide()
+                  }
+             }
+      </script>
+</head>
+
+<body onload="showList()">
+      <br>
+      <table style="margin-bottom: 20px;" id="Logos">
+            <colgroup>
+                  <col style="width: 25%">
+                  <col style="width: 25%">
+                  <col style="width: 25%">
+                  <col style="width: 25%">
+            </colgroup>
+            <thead>
+                  <tr class="content">
+                        <th class="Logos" colspan="7"><img align="left" src="../report_assets//SIS-logo.png">
+                        </th>
+                        <th class="Logos" colspan="2"> <img align="right" src="..//report_assets//gallop_logo.png">
+                        </th>
+                  </tr>
+            </thead>
+      </table>
+      <table id="header">
+            <colgroup>
+                  <col style="width: 25%">
+                  <col style="width: 25%">
+                  <col style="width: 25%">
+                  <col style="width: 25%">
+            </colgroup>
+            <thead>
+                  <tr class="heading">
+                        <th colspan="4" style="font-family:Copperplate Gothic Bold; font-size:1.4em;"> **Sprague Execution Results **</th>
+                  </tr>
+                  <tr class="subheading">
+                        <th>&nbsp;Date&nbsp;&amp;&nbsp;Time&nbsp;:&nbsp;</th>
+                        <th id="date_time">20-10-2016 14:56:46:046</th>
+                        <th>&nbsp;Suite Executed&nbsp;:&nbsp;</th>
+                        <th id="suite_executed">SpragueSmokeSuite</th>
+                  </tr>
+                  <tr class="subheading">
+                        <th>&nbsp;Host Name&nbsp;:</th>
+                        <th id="host_name">HW0588</th>
+                        <th>&nbsp;Browser&nbsp;:</th>
+                        <th id="browser">CHROME</th>
+                  </tr>
+                  <tr class="subheading">
+                        <th> &nbsp;Environment URL :&nbsp; </th>
+                        <th id="environment_name">http://abahirat:Password%232016%21@10.0.7.131:85/natgas2#/home</th>
+                        <th> &nbsp;OS :&nbsp; </th>
+                        <th id="os_name">XP</th>
+                  </tr>
+            </thead>
+      </table>
+      <table id="main">
+            <colgroup>
+                  <col style="width: 5%">
+                  <col style="width: 35%">
+                  <col style="width: 52%">
+                  <col style="width: 8%">
+            </colgroup>
+            <thead>
+                  <tr class="heading">
+                        <th>S.NO</th>
+                        <th>Action</th>
+                        <th>Result</th>
+                        <th>Status</th>
+                  </tr>
+            </thead>
+            <tbody id="SignIn_Form_Entry0" style="display:table-row-group">
+                  <tr id="Filter" class="filter">
+                        <td id="test_case_filter" align="right" colspan="4">
+                              <input type="radio" name="Filter" value="all" onclick="showAll()" checked="">All
+                              <input type="radio" name="Filter" value="pass" onclick="showPass()">Pass
+                              <input type="radio" name="Filter" value="fail" onclick="showFail()">Fail
+                        </td>
+                  </tr>
+            <tr id="TC1" class="section"><td id="test_case_name" colspan="2">TC1 : NewCustomer</td><td id="test_case_time" align="center" colspan="2">Run Time- 0 Mins : 45 Secs</td></tr><tr id="TC1" class="content2_pass"><td>1</td><td class="justified" id="case_step_name">Open URL</td><td class="justified" id="case_step_details">Successfully Opened URL: http://abahirat:Password%232016%21@10.0.7.131:85/natgas2#/home</td><td class="Pass" align="center"><img id="status_image" src="../report_assets/passed.ico" width="18" height="18"></td></tr><tr id="TC4" class="section"><td id="test_case_name" colspan="2">TC4 : EditCustomer-Prospect-SalesRep</td><td id="test_case_time" align="center" colspan="2">Run Time- 0 Mins : 48 Secs</td></tr><tr id="TC4" class="content2_pass"><td>1</td><td class="justified" id="case_step_name">Open URL</td><td class="justified" id="case_step_details">Successfully Opened URL: http://abahirat:Password%232016%21@10.0.7.131:85/natgas2#/home</td><td class="Pass" align="center"><img id="status_image" src="../report_assets/passed.ico" width="18" height="18"></td></tr></tbody>
+
+      </table>
+      <table id="footer">
+            <colgroup>
+                  <col style="width: 25%">
+                  <col style="width: 25%">
+                  <col style="width: 25%">
+                  <col style="width: 25%">
+            </colgroup>
+            <tfoot>
+                  <tr class="heading">
+                        <th colspan="4"></th>
+                  </tr>
+                  <tr class="content">
+                        <td class="pass">&nbsp;Steps Passed&nbsp;:</td>
+                        <td id="step_passed" class="pass">2</td>
+                        <td class="fail">&nbsp;Steps Failed&nbsp;: </td>
+                        <td id="step_failed" class="fail">0</td>
+                  </tr>
+
+            </tfoot>
+      </table>
+
+<script id="expanding">$("#TC1").click(function(){$(this).nextAll("#TC1").slideToggle( 'fast' );});$("#TC4").click(function(){$(this).nextAll("#TC4").slideToggle( 'fast' );});</script>
+
+<script class="jsdom" src="./library/jquery-2.2.4.min.js"></script></body></html>

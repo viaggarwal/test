@@ -1,0 +1,153 @@
+<html><head>
+    <meta charset="UTF-8">
+    <title>Sprague - Automation Execution Results Summary</title>
+    <style type="text/css">body {background-color: #FFFFFF; font-family: Verdana, Geneva, sans-serif; text-align: center; } small { font-size: 0.7em; } table { box-shadow: 9px 9px 10px 4px #BDBDBD;border: 0px solid #4D7C7B;border-collapse: collapse; border-spacing: 0px; width: 1100px; margin-left: auto; margin-right: auto; } tr.heading { background-color: #041944;color: #FFFFFF; font-size: 0.7em; font-weight: bold; background:-o-linear-gradient(bottom, #999999 5%, #000000 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #999999), color-stop(1, #000000) );background:-moz-linear-gradient( center top, #999999 5%, #000000 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#999999, endColorstr=#000000);	background: -o-linear-gradient(top,#999999,000000);} tr.subheading { background-color: #b9dfe1;color: #000000; font-weight: bold; font-size: 0.7em; text-align: justify; } tr.section { background-color: #A4A4A4; color: #333300; cursor: pointer; font-weight: bold;font-size: 0.8em; text-align: justify;background:-o-linear-gradient(bottom, #56aaff 5%, #e5e5e5 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #56aaff), color-stop(1, #e5e5e5) );background:-moz-linear-gradient( center top, #56aaff 5%, #e5e5e5 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#56aaff, endColorstr=#e5e5e5);	background: -o-linear-gradient(top,#56aaff,e5e5e5);} tr.subsection { cursor: pointer; } tr.content { background-color: #e3e3e3; color: #000000; font-size: 0.7em; display: table-row; } tr.content2 { background-color:#;E1E1E1border: 1px solid #4D7C7B;color: #000000; font-size: 0.7em; display: table-row; } td, th { padding: 10px; border: 1px solid #4D7C7B; text-align: inherit /; } th.Logos { padding: 5px; border: 0px solid #4D7C7B; text-align: inherit /;} td.justified { text-align: justify; } td.pass {font-weight: bold; color: green; } td.fail { font-weight: bold; color: red; } td.done, td.screenshot { font-weight: bold; color: black; } td.debug { font-weight: bold; color: blue; } td.warning { font-weight: bold; color: orange; } </style>
+    <style type="text/css"> #main_table{ box-shadow: 0px 0px 0px 0px; }#header_table{margin-top: 20px; width: 425px;}#execute_table{ margin-top: 20px; width: 400px;}#chart_table{margin-top: 20px; width: 250px;}#main{margin-top: 10px;}</style>
+    <script> function toggleMenu(objID) {  if (!document.getElementById) return; var ob = document.getElementById(objID).style; if(ob.display === 'none') {  try {  ob.display='table-row-group';} catch(ex) { 	 ob.display='block'; } } else {  ob.display='none'; } } function toggleSubMenu(objId) { for(i=1; i<10000; i++) { var ob = document.getElementById(objId.concat(i)); if(ob === null) { break; } if(ob.style.display === 'none') { try {  ob.style.display='table-row'; } catch(ex) { ob.style.display='block'; }  } else { ob.style.display='none'; }  } } </script>
+    <script type="text/javascript" src="../report_assets/piecanvas.js"></script>
+
+</head>
+<body>
+<br>
+<table id="Logos">
+    <colgroup>
+        <col style="width: 25%">
+        <col style="width: 25%">
+        <col style="width: 25%">
+        <col style="width: 25%">
+    </colgroup>
+    <thead>
+    <tr class="content">
+        <th class="Logos" colspan="2"><img align="left" src="../report_assets//SIS-logo.png"></th>
+        <th class="Logos" colspan="2"> <img align="right" src="..//report_assets//gallop_logo.png"></th>
+    </tr>
+    </thead>
+</table>
+<table id="main_table">
+    <tbody><tr>
+        <td style="border: 0px; padding: 0px;">
+<table id="header_table">
+    <colgroup>
+        <col style="width: 25%">
+        <col style="width: 25%">
+    </colgroup>
+    <thead style="width: 100px;">
+    <tr class="heading">
+        <th colspan="4" style="font-family:Copperplate Gothic Bold; font-size:1.4em;"> Environment Details </th>
+    </tr>
+    <tr class="subheading">
+        <th>&nbsp;Date&nbsp;&amp;&nbsp;Time&nbsp;:&nbsp;</th>
+        <th id="date_time">20-10-2016 14:56:46:046</th>
+        </tr>
+    <tr class="subheading">
+        <th>&nbsp;Suite Executed&nbsp;:&nbsp;</th>
+        <th id="suite_executed">SpragueSmokeSuite</th>
+    </tr>
+    <tr class="subheading">
+        <th>&nbsp;Host Name&nbsp;:</th>
+        <th id="host_name">HW0588</th>
+        </tr>
+    <tr class="subheading">
+        <th>&nbsp;Browser&nbsp;:</th>
+        <th id="browser">CHROME</th>
+    </tr>
+	<tr class="subheading">
+        <th>&nbsp;OS&nbsp;:</th>
+        <th id="os_name">XP</th>
+    </tr>
+    <tr class="subheading">
+        <th> &nbsp;Environment&nbsp;URL: </th>
+        <th id="environment_name" colspan="4">http://abahirat:Password%232016%21@10.0.7.131:85/natgas2#/home</th>
+
+    </tr>
+    </thead>
+</table>
+        </td>
+        <td style="border: 0px; padding: 0px;">
+<table id="execute_table">
+    <colgroup>
+        <col style="width: 25%">
+        <col style="width: 25%">
+    </colgroup>
+    <thead>
+    <tr class="heading">
+        <th colspan="4" style="font-family:Copperplate Gothic Bold; font-size:1.4em;">Execution Status </th>
+    </tr>
+    <tr class="subheading">
+        <th>&nbsp;Number Of Suites&nbsp;:</th>
+        <th id="total_suites">2</th>
+    </tr>
+    <tr class="subheading">
+        <th> &nbsp;Total Suites Passed&nbsp;: </th>
+        <th id="passed_suites" colspan="4">2</th>
+
+    </tr>
+    <tr class="subheading">
+        <th> &nbsp;Total Suites Failed&nbsp;: </th>
+        <th id="failed_suites" colspan="4">0</th>
+
+    </tr>
+    <tr class="subheading">
+        <th>&nbsp;Started&nbsp;Time&nbsp;:&nbsp;</th>
+        <th id="started_time">20-10-2016 14:56:46:046</th>
+    </tr>
+    <tr class="subheading">
+        <th>&nbsp;Ended&nbsp;Time&nbsp;:&nbsp;</th>
+        <th id="ended_time">20-10-2016 14:57:30:270</th>
+    </tr>
+    <tr class="subheading">
+        <th>&nbsp;Elapsed&nbsp;Time&nbsp;:&nbsp;</th>
+        <th id="elapsed_time">0 Mins : 44 Secs</th>
+    </tr>
+
+    </thead>
+</table></td>
+        <td style="border: 0px; padding: 0px;">
+            <table id="chart_table">
+                <colgroup>
+                    <col style="width: 25%">
+                    <col style="width: 25%">
+                </colgroup>
+                <thead>
+                <tr class="heading">
+                    <th colspan="4" style="font-family:Copperplate Gothic Bold; font-size:1.4em;">Execution Result Chart</th>
+                </tr>
+
+                </thead>
+            </table>
+                    <canvas id="canvas2" style="margin-left: 5px; box-shadow: 9px 9px 10px 4px #bdbdbd; border: 1px solid #4d7c7b;" width="250" height="205" title="title attribute">
+                        <table id="mydata2" class="datatable">
+                            <tbody><tr><td>Passed</td><td id="passed_charts">2</td></tr>
+                            <tr><td>Failed</td><td id="failed_charts">0</td></tr>
+                        </tbody></table>
+                    </canvas>
+        </td>
+    </tr>
+
+        </tbody></table><table id="main">
+            <colgroup>
+                <col style="width: 5%">
+                <col style="width: 35%">
+                <col style="width: 50%">
+                <col style="width: 10%">
+            </colgroup>
+            <thead>
+            <tr class="heading">
+                <th>S.NO</th>
+                <th>Test Case</th>
+                <th>Description</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody id="case_summary">
+
+            <tr class="content2"><td>1</td><td class="justified" id="case_step_name"><a onclick="window.open('details_result_report_CSV_Merge_CHROME_10-20-2016-14H_56M_23S.htm?currTC=TC1')" href="#">TC1</a></td><td class="justified" id="case_step_details">NewCustomer</td><td class="Pass" align="center"><img id="status_image" src="../report_assets/passed.ico" width="18" height="18"></td></tr><tr class="content2"><td>2</td><td class="justified" id="case_step_name"><a onclick="window.open('details_result_report_CSV_Merge_CHROME_10-20-2016-14H_56M_23S.htm?currTC=TC4')" href="#">TC4</a></td><td class="justified" id="case_step_details">NewCustomer</td><td class="Pass" align="center"><img id="status_image" src="../report_assets/passed.ico" width="18" height="18"></td></tr></tbody>
+            </table>
+
+
+
+
+<script type="text/javascript">
+    piechartcanvas('mydata2','canvas2','#b9dfe1', 1);
+</script>
+<script class="jsdom" src="./library/jquery-2.2.4.min.js"></script></body></html>

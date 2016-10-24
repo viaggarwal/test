@@ -1,0 +1,12 @@
+[2016-10-19 16:23:42.827] [DEBUG] paytm - ************************ paytmFailingSpec ***************************
+[2016-10-19 16:23:42.830] [DEBUG] paytm - ************************ d:\SpragueProtractorFramework\testCases\paytmFailingSpec.js***************************
+[2016-10-19 16:23:51.335] [DEBUG] paytm - Successfully Opened URL: https://paytm.com/
+[2016-10-19 16:24:00.624] [DEBUG] paytm - Performed Clicking of clicking login link
+[2016-10-19 16:24:01.202] [DEBUG] paytm - ************************ paytmHomePage ***************************
+[2016-10-19 16:24:01.203] [DEBUG] paytm - ************************ d:\SpragueProtractorFramework\testCases\paytmHomePage.js***************************
+[2016-10-19 16:24:06.310] [DEBUG] paytm - Successfully Opened URL: https://paytm.com/
+[2016-10-19 16:24:24.173] [DEBUG] paytm - Performed Clicking of clicking login link
+[2016-10-19 16:24:25.154] [DEBUG] paytm - ************************ paytmDuplicatePage ***************************
+[2016-10-19 16:24:25.155] [DEBUG] paytm - ************************ d:\SpragueProtractorFramework\testCases\paytmDuplicateSpec.js***************************
+[2016-10-19 16:24:31.452] [DEBUG] paytm - Successfully Opened URL: https://paytm.com/
+[2016-10-19 16:24:40.757] [DEBUG] paytm - Performed Clicking of clicking login link

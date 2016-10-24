@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+ <testsuite name="paytmFailingSpec" timestamp="2016-10-19T16:23:42" hostname="localhost" time="18.049" errors="0" tests="1" skipped="0" disabled="0" failures="1">
+  <testcase classname="paytmFailingSpec" name="paytmFailingSpec" time="18.045">
+   <failure type="toReport" message="Unable to perform Click operation on &apos;clicking login link&apos; because of No element found using locator: By.xpath(&quot;.//*[@id33=\&quot;app\&quot;]/div/div[2]/div[2]/div[3]/div[3]/div&quot;)"><![CDATA[Error: Failed expectation
+    at d:\SpragueProtractorFramework\library\actionLibrary.js:89:27
+    at [object Object].promise.ControlFlow.runInFrame_ (d:/SpragueProtractorFramework/node_modules/protractor/node_modules/selenium-webdriver/lib/goog/../webdriver/promise.js:1857:20)
+    at [object Object].goog.defineClass.notify (d:/SpragueProtractorFramework/node_modules/protractor/node_modules/selenium-webdriver/lib/goog/../webdriver/promise.js:2448:25)
+    at [object Object].promise.Promise.notify_ (d:/SpragueProtractorFramework/node_modules/protractor/node_modules/selenium-webdriver/lib/goog/../webdriver/promise.js:564:12)
+    at Array.forEach (native)
+    at [object Object].promise.Promise.notifyAll_ (d:/SpragueProtractorFramework/node_modules/protractor/node_modules/selenium-webdriver/lib/goog/../webdriver/promise.js:553:15)
+    at goog.async.run.processWorkQueue (d:\SpragueProtractorFramework\node_modules\protractor\node_modules\selenium-webdriver\lib\goog\async\run.js:130:15)
+    at process._tickCallback (node.js:368:9)]]>
+   </failure>
+  </testcase>
+ </testsuite>
+ <testsuite name="paytmHomePage" timestamp="2016-10-19T16:24:00" hostname="localhost" time="23.547" errors="0" tests="1" skipped="0" disabled="0" failures="0">
+  <testcase classname="paytmHomePage" name="TC7_VerifyGoogleSearch" time="23.546" />
+ </testsuite>
+ <testsuite name="paytmDuplicatePage" timestamp="2016-10-19T16:24:24" hostname="localhost" time="16.582" errors="0" tests="1" skipped="0" disabled="0" failures="1">
+  <testcase classname="paytmDuplicatePage" name="paytmDuplicatePage" time="16.581">
+   <failure type="toReport" message="Unable to perform Click operation on &apos;clicking login link&apos; because of No element found using locator: By.xpath(&quot;.//*[@id33=\&quot;app\&quot;]/div/div[2]/div[2]/div[3]/div[3]/div&quot;)"><![CDATA[Error: Failed expectation
+    at d:\SpragueProtractorFramework\library\actionLibrary.js:89:27
+    at [object Object].promise.ControlFlow.runInFrame_ (d:/SpragueProtractorFramework/node_modules/protractor/node_modules/selenium-webdriver/lib/goog/../webdriver/promise.js:1857:20)
+    at [object Object].goog.defineClass.notify (d:/SpragueProtractorFramework/node_modules/protractor/node_modules/selenium-webdriver/lib/goog/../webdriver/promise.js:2448:25)
+    at [object Object].promise.Promise.notify_ (d:/SpragueProtractorFramework/node_modules/protractor/node_modules/selenium-webdriver/lib/goog/../webdriver/promise.js:564:12)
+    at Array.forEach (native)
+    at [object Object].promise.Promise.notifyAll_ (d:/SpragueProtractorFramework/node_modules/protractor/node_modules/selenium-webdriver/lib/goog/../webdriver/promise.js:553:15)
+    at goog.async.run.processWorkQueue (d:\SpragueProtractorFramework\node_modules\protractor\node_modules\selenium-webdriver\lib\goog\async\run.js:130:15)
+    at process._tickCallback (node.js:368:9)]]>
+   </failure>
+  </testcase>
+ </testsuite>
+</testsuites>
