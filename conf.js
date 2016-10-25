@@ -1,6 +1,7 @@
 /*jslint node: true, stupid: true*/
 /*global jasmine2, jasmine, browser, by, requireUtils, $   */
 'use strict';
+var jasminePtor = require('./library/jasminePtorFailfast');
 var basePath = __dirname,
     today = new Date(),
     fs = require('fs'),
@@ -14,8 +15,17 @@ var basePath = __dirname,
     global.suite_To_Be_Executed = "Demo Suite";
 
 exports.config = {
+    //seleniumAddress: 'http://localhost:4444/wd/hub',
     framework: 'jasmine2',
     rootElement: "",
+    suites: {
+        beforeSuiteTest: 'testCases/beforeSuite/*.js',
+        testCasesTest: [
+        'testCases/*.js'
+            // 'tests/e2e/venue_search/**/*Spec.js'
+            ],
+            customTest:['testCases/tcverify.js']
+        },
     // A callback function called once configs are read but before any environment
     // setup. This will only run once, and before onPrepare.
     // You can specify a file containing code to run by setting beforeLaunch to
@@ -34,10 +44,11 @@ exports.config = {
         /**
          * global parameter declarations
          */
-        browser.ignoreSynchronization = true;
-        browser.driver.manage().window().maximize();
-        browser.manage().timeouts().pageLoadTimeout(180000);
-        params: {
+         browser.ignoreSynchronization = true;
+         browser.driver.manage().window().maximize();
+         browser.manage().timeouts().pageLoadTimeout(180000);
+         browser.manage().deleteAllCookies();
+         params: {
             APPNAME: ''
             SUITENAME: ''
         }
@@ -46,7 +57,7 @@ exports.config = {
         global.requireUtils = function (relativePath) {
             return require(basePath + '/utils/' + relativePath + '.js');
         };
-        global.TIMESTAMP = today.getMonth() + '' + today.getDate() + '' + today.getHours() + '' + today.getMinutes() + '' + today.getSeconds();
+        global.TIMESTAMP = (today.getMonth()+1) + '' + today.getDate() + '' + today.getHours() + '' + today.getMinutes() + '' + today.getSeconds();
 
         global.currentTimeStampDiff = function () {
             var today = new Date();
@@ -88,6 +99,11 @@ exports.config = {
         //     keepWebDriverAlive: false,
         // }));
         //stopSpecOnExpectationFailure: true;
+
+        //Ravinder------------
+        jasmine.getEnv().addReporter(new jasminePtor().launch());
+
+
         jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
             consolidateAll: true,
             savePath: global.REPORT_DIR,
@@ -195,7 +211,31 @@ exports.config = {
 
        browser.getWindowHandle().then(function (val) {
             global.winHandle = val;
-       });
+        });
+
+        jasmine.getEnv().addReporter(new jasminePtorFailfast().launch());
+        
+        var disableNgAnimate = function() {
+            angular.module('disableNgAnimate', []).run(function($animate) {
+                $animate.enabled(false);
+            });
+        };
+        var disableCssAnimate = function() {
+            angular.module('disableCssAnimate', []).run(function() {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = '* {' +
+                '-webkit-transition: none !important;' +
+                '-moz-transition: none !important' +
+                '-o-transition: none !important' +
+                '-ms-transition: none !important' +
+                'transition: none !important' +
+                '}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            });
+        };
+        browser.addMockModule('disableCssAnimate', disableCssAnimate);
+        browser.addMockModule('disableNgAnimate', disableNgAnimate);
     },
     jasmineNodeOpts: {
         showColors: true,
