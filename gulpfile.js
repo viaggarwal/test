@@ -49,6 +49,22 @@ gulp.task('SpragueSmokeSuite', ['JShint'], function () {
    executeWebTests(SpragueSmokeTestCasesPath, ' ', 'SPRAGUE_NATURAL_GAS');
 });
 
+gulp.task('SpragueTestSuite', ['JShint'], function () {
+    // executeWebTests(SpraguesampleTestCasesPath, ' ', 'SPRAGUE_NATURAL_GAS');
+
+    gulp.src([]).pipe(gulpProtractorAngular({
+        configFile: 'conf.js',
+        args: [
+        '--suite', 'customTest'
+        ]
+    })).on('error', function(e) {
+        console.log(e);
+    }).on('end', function(end){
+        console.log('#END');
+    });
+
+});
+
 gulp.task('GoogleSearch', ['JShint'], function () {
     executeWebTests(SpragueGoogleSearchPath, ' ', 'GOOGLE_SEARCH');
 });

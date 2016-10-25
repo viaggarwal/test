@@ -59,13 +59,15 @@ module.exports = {
 
     SetText: function (locator, value, logname) {
         element(locator).clear().then(function () {
-            element(locator).sendKeys(value).then(function () {
+            element(locator).click().sendKeys(value).then(function () {
                 reporter.appendTest('EnteringValue', 'Entered ' + value + ' in the Input Field ' + logname, "PASS");
             }, function (err) {
                 reporter.appendTest('EnteringValue', 'Entered ' + value + ' in the Input Field ' + logname, "FAIL");
                 expect(false).toReport(true, "Unable to perform SetText operation on '" + logname + "' because of " + err.message);
             });
         }, function (err) {
+            console.log("error*****************************");
+            console.log(err);
             reporter.appendTest('ClearingValue', 'Clearing value in the Input Field: ' + logname + 'Error: '+err.message, "FAIL");
             expect(false).toReport(true, "Unable to perform SetText operation on '" + logname + "' because of " + err.message);
         });
@@ -129,18 +131,24 @@ module.exports = {
         expect(element(locator).isPresent()).toReport(ExpectedResult, "Verifying Element Present FAILED for: " + locator.toString());
     },
     moveMouseOnMenuItem: function(mainMenuLocator,menuName){
-        var menuItem = browser.element.all(mainMenuLocator).filter(function (items) {
-            return items.getText().then(function (text) {
-                return text.indexOf(menuName) === 0;
-            })
-        }, function (err) {
-            reporter.appendTest('Open Main Menu', 'Opening Main Menu: '+menuName, "FAIL");
-        }).first();
-        browser.actions().mouseMove(menuItem).perform().then(function(){
-            reporter.appendTest('Open Main Menu', 'Successfully Opened Main Menu: '+menuName, "PASS");
-        }, function (err) {
+        try {
+            console.log()
+            var menuItem = browser.element.all(mainMenuLocator).filter(function (items) {
+                return items.getText().then(function (text) {
+                    return text.indexOf(menuName) === 0;
+                })
+            }, function (err) {
+                reporter.appendTest('Open Main Menu', 'Opening Main Menu: ' + menuName, "FAIL");
+            }).first();
+            browser.actions().mouseMove(menuItem).perform().then(function () {
+                reporter.appendTest('Open Main Menu', 'Successfully Opened Main Menu: ' + menuName, "PASS");
+            }, function (err) {
+                reporter.appendTest('Open Main Menu', 'Opening Main Menu: ' + menuName, "FAIL");
+            });
+        } catch(err){
             reporter.appendTest('Open Main Menu', 'Opening Main Menu: ' + menuName, "FAIL");
-        });
+        };
+
     },
     VerifyTextFieldEnabled: function(locator,logname,expectedStatus){
         element(locator).sendKeys("Testing").then(function(){
