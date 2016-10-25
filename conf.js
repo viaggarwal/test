@@ -103,7 +103,6 @@ exports.config = {
         //Ravinder------------
         jasmine.getEnv().addReporter(new jasminePtor().launch());
 
-
         jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
             consolidateAll: true,
             savePath: global.REPORT_DIR,
