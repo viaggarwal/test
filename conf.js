@@ -12,7 +12,7 @@ var basePath = __dirname,
     global.current_TestCase = "";
     global.current_Suite = "";
     global.suite_To_Be_Executed = "Demo Suite";
-
+  //This is just test comment to test pull request in github
 exports.config = {
     framework: 'jasmine2',
     rootElement: "",
