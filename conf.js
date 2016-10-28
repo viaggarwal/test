@@ -44,7 +44,7 @@ exports.config = {
         /**
          * global parameter declarations
          */
-         browser.ignoreSynchronization = true;
+          browser.ignoreSynchronization = true;
          browser.driver.manage().window().maximize();
          browser.manage().timeouts().pageLoadTimeout(180000);
          browser.manage().deleteAllCookies();
@@ -212,8 +212,6 @@ exports.config = {
             global.winHandle = val;
         });
 
-        jasmine.getEnv().addReporter(new jasminePtorFailfast().launch());
-        
         var disableNgAnimate = function() {
             angular.module('disableNgAnimate', []).run(function($animate) {
                 $animate.enabled(false);

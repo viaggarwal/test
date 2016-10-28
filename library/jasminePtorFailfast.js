@@ -11,23 +11,23 @@ jasminePtorFailfast.prototype.launch = function() {
 
 	return {
 		jasmineStarted: function jasmineStarted(suiteInfo) {
-			console.log('#SuiteInfo --->  '+ suiteInfo.totalSpecsDefined);
+			// console.log('#SuiteInfo --->  '+ suiteInfo.totalSpecsDefined);
 		},		
 		suiteStarted: function suiteStarted(suiteStart) {
 			self.currentSuiteName = suiteStart.fullName;
-			console.log('<-------  #SuiteStarted  -------> ');
-			console.log('#Current Suite Description --->  ',suiteStart.description);
-			console.log('#Current Suite Name --->  ',self.currentSuiteName);
+			// console.log('<-------  #SuiteStarted  -------> ');
+			// console.log('#Current Suite Description --->  ',suiteStart.description);
+			// console.log('#Current Suite Name --->  ',self.currentSuiteName);
 		},
 		specStarted: function specStarted(specStart) {
-			console.log('<-------  #SpecStarted  -------> ');
-			console.log('#Current Spec Name --->  ',specStart.fullName);
-			console.log('#Current Spec Name --->  ',specStart.description);
+			// console.log('<-------  #SpecStarted  -------> ');
+			// console.log('#Current Spec Name --->  ',specStart.fullName);
+			// console.log('#Current Spec Name --->  ',specStart.description);
 		},
 		specDone: function specDone(specEnd) {	
-			console.log('<-------  #SpecDone  -------> ');
-			console.log('#Current Spec Name --->  ',specEnd.fullName);
-			console.log('#Current Spec Result --->  ',specEnd.status);
+			// console.log('<-------  #SpecDone  -------> ');
+			// console.log('#Current Spec Name --->  ',specEnd.fullName);
+			// console.log('#Current Spec Result --->  ',specEnd.status);
 			var message;
 			var description;
 			if(specEnd.status == 'failed'){
@@ -37,12 +37,12 @@ jasminePtorFailfast.prototype.launch = function() {
 			}
 		},
 		suiteDone: function suiteDone(suiteEnd) {
-			console.log('<-------  #SuiteDone  -------> ');
-			console.log('#Current Suite Name --->  ',suiteEnd.fullName);
-			console.log('#Current Suite Name --->  ',suiteEnd.status);
+			// console.log('<-------  #SuiteDone  -------> ');
+			// console.log('#Current Suite Name --->  ',suiteEnd.fullName);
+			// console.log('#Current Suite Name --->  ',suiteEnd.status);
 		},
 		jasmineDone: function jasmineDone() {
-			console.log('<-------  #JasmineDone  -------> ');
+			// console.log('<-------  #JasmineDone  -------> ');
 		}
 	};
 };
