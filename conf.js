@@ -15,7 +15,7 @@ var basePath = __dirname,
     global.suite_To_Be_Executed = "Demo Suite";
 
 exports.config = {
-    seleniumAddress: 'http://localhost:4444/wd/hub',
+    // seleniumAddress: 'http://localhost:4444/wd/hub',
     framework: 'jasmine2',
     rootElement: "",
     suites: {
