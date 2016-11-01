@@ -15,7 +15,7 @@ var basePath = __dirname,
     global.suite_To_Be_Executed = "Demo Suite";
 
 exports.config = {
-    //seleniumAddress: 'http://localhost:4444/wd/hub',
+    // seleniumAddress: 'http://localhost:4444/wd/hub',
     framework: 'jasmine2',
     rootElement: "",
     suites: {
@@ -102,6 +102,11 @@ exports.config = {
 
         //Ravinder------------
         jasmine.getEnv().addReporter(new jasminePtor().launch());
+
+        browser.driver.getCapabilities().then(function (caps) {
+            global.browserName = caps.get('browserName');
+            global.platform = caps.get('platform');
+        });
 
         jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
             consolidateAll: true,
