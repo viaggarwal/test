@@ -7,7 +7,7 @@ describe('TC001', function () {
 	it('TC001#1st spec', function () {
 		console.log('1st spec');
 		googleSearchPage.performGoogleSearch();
-		expect(true).toBe(false);
+		expect(true).toBe(true);
 		// browser.get('https://www.google.com');
 	});
 	it('TC001#2nd spec', function () {

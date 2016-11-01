@@ -76,48 +76,48 @@ module.exports = {
         detailedReport(csv, true);
         report_name = "details_result_report_" + csv + "_" + timeStamp + ".htm";
        // console.log("**********failArr********", global.failArr);
-        summaryReport(csv, report_name).then(function () {
-            console.log('******summaryReport ENDS******');
+       summaryReport(csv, report_name).then(function () {
+        console.log('******summaryReport ENDS******');
             //console.log('*********email content********',email_content)
             emailSumReport(csv, report_name, email_content).then(function () {
                 console.log('******emailReport ENDS******');
             });
         });
-    },
-    reportInitialization: function () {
-        console.log('****entered into reporter initialization******');
-        if (global.BROWSER_TO_BE_EXECUTED == 'INTERNET EXPLORER') {
-            tmpBrowName = 'IE';
-        }
-        else {
-            tmpBrowName = global.BROWSER_TO_BE_EXECUTED;
-        }
-        var csv = 'CSV_Merge_' + tmpBrowName;
-        cleaningCSV(csv);
-    },
-    generateSubReport: function (csv) {
-        console.log('************current CSV', csv);
-        console.log('************current TimeStamp*******', currentTimeStamp());
+   },
+   reportInitialization: function () {
+    console.log('****entered into reporter initialization******');
+    if (global.BROWSER_TO_BE_EXECUTED == 'INTERNET EXPLORER') {
+        tmpBrowName = 'IE';
+    }
+    else {
+        tmpBrowName = global.BROWSER_TO_BE_EXECUTED;
+    }
+    var csv = 'CSV_Merge_' + tmpBrowName;
+    cleaningCSV(csv);
+},
+generateSubReport: function (csv) {
+    console.log('************current CSV', csv);
+    console.log('************current TimeStamp*******', currentTimeStamp());
         //setHeaderValues(csv);
         //detailedReport(csv, false);
         mergingSubFilesIntoCSV(csv);
     },
     captureScreenShot: function (png, currentStep) {
        /* var path = './results/GallopReport/' + currentStep + '.png';
-        storeScreenShot(png, path);*/
-        var jpath = './results/GallopReport/'+global.SUITENAME+'-'+global.TIMESTAMP+'/' + currentStep + '.png';
-        storeScreenShot(png, jpath);
-    },
-    appendTest: function (TestStep, TestStepDesc, Result) {
-        if (TestStep.indexOf(',') > -1) {
-            TestStep = TestStep.split(',').join('');
-            TestStep = TestStep.split('\n').join('');
-        }
-        if (TestStepDesc.indexOf(',') > -1) {
-            TestStepDesc = TestStepDesc.split(',').join('');
-            TestStepDesc = TestStepDesc.split('\n').join('');
-        }
-        if (Result.indexOf('FAIL') > -1) {
+       storeScreenShot(png, path);*/
+       var jpath = './results/GallopReport/'+global.SUITENAME+'-'+global.TIMESTAMP+'/' + currentStep + '.png';
+       storeScreenShot(png, jpath);
+   },
+   appendTest: function (TestStep, TestStepDesc, Result) {
+    if (TestStep.indexOf(',') > -1) {
+        TestStep = TestStep.split(',').join('');
+        TestStep = TestStep.split('\n').join('');
+    }
+    if (TestStepDesc.indexOf(',') > -1) {
+        TestStepDesc = TestStepDesc.split(',').join('');
+        TestStepDesc = TestStepDesc.split('\n').join('');
+    }
+    if (Result.indexOf('FAIL') > -1) {
             // if(global.failArr.indexOf(global.current_TestCase.split("_")[0])<0){
             // console.log('Pushing failed TC.....', global.current_TestCase.split("_")[0]);
             // global.failArr.push(global.current_TestCase.split("_")[0]);
@@ -129,28 +129,27 @@ module.exports = {
                 if (err) throw err;
             });
         }
-        var capsPromise = browser.getCapabilities();
-        capsPromise.then(function (caps) {
-            if (Result.indexOf('FAIL') > -1) {
-                browser.takeScreenshot().then(function (png) {
-                    var rand = Math.floor((Math.random() * 10000) + 1);
-                    var ScrShotFileName = 'Scr_' + rand + '_' + currentTimeStamp();
+        
+        if (Result.indexOf('FAIL') > -1) {
+            browser.takeScreenshot().then(function (png) {
+                var rand = Math.floor((Math.random() * 10000) + 1);
+                var ScrShotFileName = 'Scr_' + rand + '_' + currentTimeStamp();
                  //   var path = './results/GallopReport/' + ScrShotFileName + '.png';
                  //   storeScreenShot(png, path);
-                    var jpath = './results/GallopReport/'+global.SUITENAME+'-'+global.TIMESTAMP+'/' + ScrShotFileName + '.png';
-                    storeScreenShot(png, jpath);
-                    Final_Result = Result + ':' + ScrShotFileName + '.png';
+                 var jpath = './results/GallopReport/'+global.SUITENAME+'-'+global.TIMESTAMP+'/' + ScrShotFileName + '.png';
+                 storeScreenShot(png, jpath);
+                 Final_Result = Result + ':' + ScrShotFileName + '.png';
 
-                });
-            } else {
-                Final_Result = Result;
-            }
-            OS = caps.caps_.platform.toUpperCase();
+             });
+        } else {
+            Final_Result = Result;
+        }
+        OS = global.platform.toUpperCase();
 
-            if (Result.indexOf('FAIL') > -1) {
-                browser.getWindowHandle().then(function (val) {
-                    var win = val.substring(9, parseInt(val.length));
-                    data1 = [caps.caps_.browserName.toUpperCase(), global.process.env.COMPUTERNAME, OS, global.current_TestCase.split("_")[0], global.current_TestCase.split("_")[1], TestStep, Final_Result, TestStepDesc, currentTimeStampDiff(), global.AppURL, global.suite_To_Be_Executed, 'details_result_report_TS_' + win] + '\n';
+        if (Result.indexOf('FAIL') > -1) {
+            browser.getWindowHandle().then(function (val) {
+                var win = val.substring(9, parseInt(val.length));
+                data1 = [global.browserName.toUpperCase(), global.process.env.COMPUTERNAME, OS, global.current_TestCase.split("_")[0], global.current_TestCase.split("_")[1], TestStep, Final_Result, TestStepDesc, currentTimeStampDiff(), global.AppURL, global.suite_To_Be_Executed, 'details_result_report_TS_' + win] + '\n';
                     //data1 = [caps.caps_.browserName.toUpperCase(), global.process.env.COMPUTERNAME, OS, global.current_TestCase.split("_")[0], global.current_TestCase.split("_")[1], TestStep, Final_Result, TestStepDesc, currentTimeStampDiff(), global.amkaiURL, global.suite_To_Be_Executed] + '\n';
                     append_data_into_csv(data1, 'TS_' + win);
                     //mergingSubFilesIntoCSV('TS_' + win);
@@ -167,20 +166,20 @@ module.exports = {
             else {
                 browser.getWindowHandle().then(function (val) {
                     var win = val.substring(9, parseInt(val.length));
-                    data1 = [caps.caps_.browserName.toUpperCase(), global.process.env.COMPUTERNAME, OS, global.current_TestCase.split("_")[0], global.current_TestCase.split("_")[1], TestStep, Final_Result, TestStepDesc, currentTimeStampDiff(),  global.AppURL, global.suite_To_Be_Executed, 'details_result_report_TS_' + win] + '\n';
+                    data1 = [global.browserName.toUpperCase(), global.process.env.COMPUTERNAME, OS, global.current_TestCase.split("_")[0], global.current_TestCase.split("_")[1], TestStep, Final_Result, TestStepDesc, currentTimeStampDiff(),  global.AppURL, global.suite_To_Be_Executed, 'details_result_report_TS_' + win] + '\n';
                     //data1 = [caps.caps_.browserName.toUpperCase(), global.process.env.COMPUTERNAME, OS, global.current_TestCase.split("_")[0], global.current_TestCase.split("_")[1], TestStep, Final_Result, TestStepDesc, currentTimeStampDiff(), global.amkaiURL, global.suite_To_Be_Executed] + '\n';
 
                     append_data_into_csv(data1, 'TS_' + win);
                     logger.Log(TestStepDesc);
                 });
             }
-        });
-        Final_Result = '';
+            
+            Final_Result = '';
 
+        }
     }
-}
-function mergingSubFilesIntoCSV(csv) {
-    var Browser_Name;
+    function mergingSubFilesIntoCSV(csv) {
+        var Browser_Name;
 
     // console.log('*******csv*******' + csv);
     fs.readFile('./results/GallopReport/report_assets/' + csv + '.csv', 'utf8', function (error, data) {
@@ -264,10 +263,10 @@ function detailedReport(csv, runTimeDisplayFlag) {
                         if (runTimeDisplayFlag) {
                             var Case_Elapsed_Time = elapsed_time_of_each_TC(Curr_TCName, 'results_output');
                             tdCase = "<tr id=" + Curr_TCName + " class='section'><td id='test_case_name' colspan='2'>" + Curr_TCName + " : " + Case_Desc_Det + "</td>" +
-                                "<td id='test_case_time' align='center' colspan='2'>Run Time- " + Case_Elapsed_Time + "</td></tr>"
+                            "<td id='test_case_time' align='center' colspan='2'>Run Time- " + Case_Elapsed_Time + "</td></tr>"
                         } else {
                             tdCase = "<tr id=" + Curr_TCName + " class='section'><td id='test_case_name' colspan='2'>" + Curr_TCName + " : " + Case_Desc_Det + "</td>" +
-                                "<td id='test_case_time' align='center' colspan='2'></td></tr>"
+                            "<td id='test_case_time' align='center' colspan='2'></td></tr>"
                         }
                         $("#SignIn_Form_Entry0").append(tdCase);
                         $("#SignIn_Form_Entry0").append(tdSteps);
@@ -282,47 +281,47 @@ function detailedReport(csv, runTimeDisplayFlag) {
                     js_content = "$(" + tcname + ").click(function(){$(this).nextAll(" + tcname + ").slideToggle( 'fast' );});";
 
                     tdSteps = tdSteps + "<tr id=" + Curr_TCName + " class='" + tr_case_class + "'><td>" + Sr_NO + "</td>" +
-                        "<td class='justified' id='case_step_name'>" + Step_Name + "</td>" +
-                        "<td class='justified' id='case_step_details'>" + Step_Desc + "</td>" +
-                        "<td class='Pass' align='center'>" + Image_Src + "</td></tr>"
+                    "<td class='justified' id='case_step_name'>" + Step_Name + "</td>" +
+                    "<td class='justified' id='case_step_details'>" + Step_Desc + "</td>" +
+                    "<td class='Pass' align='center'>" + Image_Src + "</td></tr>"
 
                 }),
-                    lineRdr.on('close', function () {
-                        if (runTimeDisplayFlag) {
-                            var Case_Elapsed_Time = elapsed_time_of_each_TC(Curr_TCName, 'results_output');
-                            tdCase = "<tr id=" + Curr_TCName + " class='section'><td id='test_case_name' colspan='2'>" + Curr_TCName + " : " + Case_Desc_Det + "</td>" +
-                                "<td id='test_case_time' align='center' colspan='2'>Run Time- " + Case_Elapsed_Time + "</td></tr>";
-                            report_name = "details_result_report_" + csv + "_" + timeStamp + ".htm";
-                        } else {
-                            tdCase = "<tr id=" + Curr_TCName + " class='section'><td id='test_case_name' colspan='2'>" + Curr_TCName + " : " + Case_Desc_Det + "</td>" +
-                                "<td id='test_case_time' align='center' colspan='2'></td></tr>";
-                            report_name = "details_result_report_" + csv + ".htm";
-                        }
-                        $("#SignIn_Form_Entry0").append(tdCase);
-                        $("#SignIn_Form_Entry0").append(tdSteps);
-                        $("#expanding").append(js_content);
-                        tdCase = "";
-                        tdSteps = "";
-                        Sr_NO = 1;
-                        Passed = TestStepsCount - Failed;
-                        $("#step_passed").text(Passed);
-                        $("#step_failed").text(Failed);
-                        Failed = 0;
+                lineRdr.on('close', function () {
+                    if (runTimeDisplayFlag) {
+                        var Case_Elapsed_Time = elapsed_time_of_each_TC(Curr_TCName, 'results_output');
+                        tdCase = "<tr id=" + Curr_TCName + " class='section'><td id='test_case_name' colspan='2'>" + Curr_TCName + " : " + Case_Desc_Det + "</td>" +
+                        "<td id='test_case_time' align='center' colspan='2'>Run Time- " + Case_Elapsed_Time + "</td></tr>";
+                        report_name = "details_result_report_" + csv + "_" + timeStamp + ".htm";
+                    } else {
+                        tdCase = "<tr id=" + Curr_TCName + " class='section'><td id='test_case_name' colspan='2'>" + Curr_TCName + " : " + Case_Desc_Det + "</td>" +
+                        "<td id='test_case_time' align='center' colspan='2'></td></tr>";
+                        report_name = "details_result_report_" + csv + ".htm";
+                    }
+                    $("#SignIn_Form_Entry0").append(tdCase);
+                    $("#SignIn_Form_Entry0").append(tdSteps);
+                    $("#expanding").append(js_content);
+                    tdCase = "";
+                    tdSteps = "";
+                    Sr_NO = 1;
+                    Passed = TestStepsCount - Failed;
+                    $("#step_passed").text(Passed);
+                    $("#step_failed").text(Failed);
+                    Failed = 0;
                        /* fs.writeFile("./results/GallopReport/" + report_name, window.document.documentElement.outerHTML
                             , function (error) {
                                 if (error) throw error;
                             });*/
-                        fs.writeFile("./results/GallopReport/"+global.SUITENAME+'-'+global.TIMESTAMP+"/" + report_name, window.document.documentElement.outerHTML
-                            , function (error) {
-                                if (error) throw error;
-                            });
+                            fs.writeFile("./results/GallopReport/"+global.SUITENAME+'-'+global.TIMESTAMP+"/" + report_name, window.document.documentElement.outerHTML
+                                , function (error) {
+                                    if (error) throw error;
+                                });
 
-                    })
+                        })
 
             }
 
         });
-    });
+});
 }
 
 function summaryReport(csv, fn) {
@@ -358,9 +357,9 @@ function summaryReport(csv, fn) {
                                 var email_Image_Src = "<td style='text-align: center; font-weight: bold' width='9%' class='table_cell' bgcolor='#98FB98'>PASS</td></tr>";
                                 var trCases = "";
                                 trCases = trCases + "<tr class='content2'><td>" + Case_NO + "</td>" +
-                                    "<td class='justified' id='case_step_name'><a onclick=window.open('" + fn + '?currTC=' + Case_Step + "') href='#'>" + Case_Step + "</a></td>" +
-                                    "<td class='justified' id='case_step_details'>" + Case_Desc_Sum + "</td>" +
-                                    "<td class='Pass' align='center'><img  id='status_image' src=" + Image_Src + " width='18' height='18'/></td></tr>";
+                                "<td class='justified' id='case_step_name'><a onclick=window.open('" + fn + '?currTC=' + Case_Step + "') href='#'>" + Case_Step + "</a></td>" +
+                                "<td class='justified' id='case_step_details'>" + Case_Desc_Sum + "</td>" +
+                                "<td class='Pass' align='center'><img  id='status_image' src=" + Image_Src + " width='18' height='18'/></td></tr>";
                                 $("#case_summary").append(trCases);
                             }
                             if(value=="Fail"){
@@ -370,9 +369,9 @@ function summaryReport(csv, fn) {
                                 var email_Image_Src = "<td style='text-align: center; font-weight: bold' width='9%' class='table_cell' bgcolor='#FF0000'>FAIL</td></tr>";
                                 var trCases = "";
                                 trCases = trCases + "<tr class='content2'><td>" + Case_NO + "</td>" +
-                                    "<td class='justified' id='case_step_name'><a onclick=window.open('" + fn + '?currTC=' + Case_Step + "') href='#'>" + Case_Step + "</a></td>" +
-                                    "<td class='justified' id='case_step_details'>" + Case_Desc_Sum + "</td>" +
-                                    "<td class='Pass' align='center'><img  id='status_image' src=" + Image_Src + " width='18' height='18'/></td></tr>";
+                                "<td class='justified' id='case_step_name'><a onclick=window.open('" + fn + '?currTC=' + Case_Step + "') href='#'>" + Case_Step + "</a></td>" +
+                                "<td class='justified' id='case_step_details'>" + Case_Desc_Sum + "</td>" +
+                                "<td class='Pass' align='center'><img  id='status_image' src=" + Image_Src + " width='18' height='18'/></td></tr>";
                                 $("#case_summary").append(trCases);
                             }
                             $("#total_suites").text(Case_NO);
@@ -392,10 +391,10 @@ function summaryReport(csv, fn) {
                     }
 
                 });
-            });
-            console.log("***********************Summary Results Completed***********************");
-        });
-    });
+});
+console.log("***********************Summary Results Completed***********************");
+});
+});
 
 }
 
@@ -561,12 +560,12 @@ function pushSumData(csv) {
             }
 
         }),
-            lineRdr.on('close', function () {
-                console.log("Test_Status" + Test_Status);
-                summData.push(Test_Status);
-                Test_Status = 'Pass';                
-                resolve('Hi This is working properly..!!');
-            });
+        lineRdr.on('close', function () {
+            console.log("Test_Status" + Test_Status);
+            summData.push(Test_Status);
+            Test_Status = 'Pass';                
+            resolve('Hi This is working properly..!!');
+        });
 
     });
 

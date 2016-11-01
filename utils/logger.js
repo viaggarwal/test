@@ -5,21 +5,21 @@
  * Logger functionality, maintains log the testcase flow while automation.
  * @class logger
  */
-'use strict';
-var logfilepath,
-    logfilepath_user,
-    log4js = require('log4js'),
-    logger,
-    logger_user;
+ 'use strict';
+ var logfilepath,
+ logfilepath_user,
+ log4js = require('log4js'),
+ logger,
+ logger_user;
 
-module.exports = {
+ module.exports = {
     Info: function (log_dir, fileName, TIMESTAMP) {
         require('fs').mkdir(log_dir, function () {
             console.log("Log directory created!");
         });
         var logfilepath = log_dir +"/"+ fileName + '-' + TIMESTAMP + '.csv',
-            log4js = require('log4js'),
-            logger = log4js.getLogger('');
+        log4js = require('log4js'),
+        logger = log4js.getLogger('');
         log4js.loadAppender('file');
         log4js.addAppender(log4js.appenders.file(logfilepath), '');
         logger.setLevel('log4js.levels.ERROR');
@@ -31,21 +31,21 @@ module.exports = {
      * @param {String} TestStepDesc
      * @returns {none}
      */
-    Log: function (TestStepDesc) {
+     Log: function (TestStepDesc) {
         var suiteName = global.SUITENAME, BrowserName;
         var currTimeStamp = global.TIMESTAMP;
         if (suiteName !== '') {
-            browser.getCapabilities().then(function (caps) {
-                BrowserName = caps.caps_.browserName.toUpperCase();
-                logfilepath = './results/' + suiteName + '-' + BrowserName + '-' + currTimeStamp + '.csv';
-                log4js.loadAppender('file');
-                log4js.addAppender(log4js.appenders.console());
-                log4js.addAppender(log4js.appenders.file(logfilepath), suiteName);
-                logger = log4js.getLogger(suiteName);
-                logger.setLevel(global.LOGLEVEL);
-                logger.debug(TestStepDesc);
-                log4js.clearAppenders();
-            });
+            
+            BrowserName = global.browserName.toUpperCase();
+            logfilepath = './results/' + suiteName + '-' + BrowserName + '-' + currTimeStamp + '.csv';
+            log4js.loadAppender('file');
+            log4js.addAppender(log4js.appenders.console());
+            log4js.addAppender(log4js.appenders.file(logfilepath), suiteName);
+            logger = log4js.getLogger(suiteName);
+            logger.setLevel(global.LOGLEVEL);
+            logger.debug(TestStepDesc);
+            log4js.clearAppenders();
+            
         }
     },
     /**
@@ -54,21 +54,21 @@ module.exports = {
      * @param {String} TestStepDesc
      * @returns {none}
      */
-    LogDebug: function (TestStepDesc) {
+     LogDebug: function (TestStepDesc) {
         var TCName = global.current_TestCase, BrowserName;
         var currTimeStamp = global.TIMESTAMP;
         if (TCName !== '') {
-            browser.getCapabilities().then(function (caps) {
-                BrowserName = caps.caps_.browserName.toUpperCase();
-                logfilepath = './results/' + TCName + '-' + BrowserName + '-' + currTimeStamp + '.csv';
-                log4js.loadAppender('file');
-                log4js.addAppender(log4js.appenders.console());
-                log4js.addAppender(log4js.appenders.file(logfilepath), TCName);
-                logger = log4js.getLogger(TCName);
-                logger.setLevel(global.LOGLEVEL);
-                logger.debug(TestStepDesc);
-                log4js.clearAppenders();
-            });
+            
+            BrowserName = global.browserName.toUpperCase();
+            logfilepath = './results/' + TCName + '-' + BrowserName + '-' + currTimeStamp + '.csv';
+            log4js.loadAppender('file');
+            log4js.addAppender(log4js.appenders.console());
+            log4js.addAppender(log4js.appenders.file(logfilepath), TCName);
+            logger = log4js.getLogger(TCName);
+            logger.setLevel(global.LOGLEVEL);
+            logger.debug(TestStepDesc);
+            log4js.clearAppenders();
+            
         }
     },
     /**
@@ -77,21 +77,21 @@ module.exports = {
      * @param {String} TestStepDesc
      * @returns {none}
      */
-    LogError: function (TestStepDesc) {
+     LogError: function (TestStepDesc) {
         var TCName = global.current_TestCase, BrowserName;
         var currTimeStamp = global.TIMESTAMP;
         if (TCName !== '') {
-            browser.getCapabilities().then(function (caps) {
-                BrowserName = caps.caps_.browserName.toUpperCase();
-                logfilepath = './results/logs/' + TCName + '-' + BrowserName + '-' + currTimeStamp + '.log';
-                log4js.loadAppender('file');
-                log4js.addAppender(log4js.appenders.console());
-                log4js.addAppender(log4js.appenders.file(logfilepath), TCName);
-                logger = log4js.getLogger(TCName);
-                logger.setLevel(global.LOGLEVEL);
-                logger.error(TestStepDesc);
-                log4js.clearAppenders();
-            });
+            
+            BrowserName = global.browserName.toUpperCase();
+            logfilepath = './results/logs/' + TCName + '-' + BrowserName + '-' + currTimeStamp + '.log';
+            log4js.loadAppender('file');
+            log4js.addAppender(log4js.appenders.console());
+            log4js.addAppender(log4js.appenders.file(logfilepath), TCName);
+            logger = log4js.getLogger(TCName);
+            logger.setLevel(global.LOGLEVEL);
+            logger.error(TestStepDesc);
+            log4js.clearAppenders();
+            
         }
     },
     /**
@@ -100,21 +100,21 @@ module.exports = {
      * @param {String} TestStepDesc
      * @returns {none}
      */
-    LogInfo: function (TestStepDesc) {
+     LogInfo: function (TestStepDesc) {
         var TCName = global.current_TestCase, BrowserName;
         var currTimeStamp = global.TIMESTAMP;
         if (TCName !== '') {
-            browser.getCapabilities().then(function (caps) {
-                BrowserName = caps.caps_.browserName.toUpperCase();
-                logfilepath = './results/logs/' + TCName + '-' + BrowserName + '-' + currTimeStamp + '.log';
-                log4js.loadAppender('file');
-                log4js.addAppender(log4js.appenders.console());
-                log4js.addAppender(log4js.appenders.file(logfilepath), TCName);
-                logger = log4js.getLogger(TCName);
-                logger.setLevel(global.LOGLEVEL);
-                logger.info(TestStepDesc);
-                log4js.clearAppenders();
-            });
+            
+            BrowserName = global.browserName.toUpperCase();
+            logfilepath = './results/logs/' + TCName + '-' + BrowserName + '-' + currTimeStamp + '.log';
+            log4js.loadAppender('file');
+            log4js.addAppender(log4js.appenders.console());
+            log4js.addAppender(log4js.appenders.file(logfilepath), TCName);
+            logger = log4js.getLogger(TCName);
+            logger.setLevel(global.LOGLEVEL);
+            logger.info(TestStepDesc);
+            log4js.clearAppenders();
+            
         }
     },
     /**
@@ -123,21 +123,21 @@ module.exports = {
      * @param {String} TestStepDesc
      * @returns {none}
      */
-    LogWarn: function (TestStepDesc) {
+     LogWarn: function (TestStepDesc) {
         var TCName = global.current_TestCase, BrowserName;
         var currTimeStamp = global.log_timeStamp;
         if (TCName !== '') {
-            browser.getCapabilities().then(function (caps) {
-                BrowserName = caps.caps_.browserName.toUpperCase();
-                logfilepath = './results/logs/' + TCName + '-' + BrowserName + '-' + currTimeStamp + '.log';
-                log4js.loadAppender('file');
-                log4js.addAppender(log4js.appenders.console());
-                log4js.addAppender(log4js.appenders.file(logfilepath), TCName);
-                logger = log4js.getLogger(TCName);
-                logger.setLevel(global.LOGLEVEL);
-                logger.warn(TestStepDesc);
-                log4js.clearAppenders();
-            });
+            
+            BrowserName = global.browserName.toUpperCase();
+            logfilepath = './results/logs/' + TCName + '-' + BrowserName + '-' + currTimeStamp + '.log';
+            log4js.loadAppender('file');
+            log4js.addAppender(log4js.appenders.console());
+            log4js.addAppender(log4js.appenders.file(logfilepath), TCName);
+            logger = log4js.getLogger(TCName);
+            logger.setLevel(global.LOGLEVEL);
+            logger.warn(TestStepDesc);
+            log4js.clearAppenders();
+            
         }
     },
     /**
@@ -146,21 +146,21 @@ module.exports = {
      * @param {String} TestStepDesc
      * @returns {none}
      */
-    LogFatal: function (TestStepDesc) {
+     LogFatal: function (TestStepDesc) {
         var TCName = global.current_TestCase, BrowserName;
         var currTimeStamp = global.TIMESTAMP;
         if (TCName !== '') {
-            browser.getCapabilities().then(function (caps) {
-                BrowserName = caps.caps_.browserName.toUpperCase();
-                logfilepath = './results/logs/' + TCName + '-' + BrowserName + '-' + currTimeStamp + '.log';
-                log4js.loadAppender('file');
-                log4js.addAppender(log4js.appenders.console());
-                log4js.addAppender(log4js.appenders.file(logfilepath), TCName);
-                logger = log4js.getLogger(TCName);
-                logger.setLevel(global.LOGLEVEL);
-                logger.fatal(TestStepDesc);
-                log4js.clearAppenders();
-            });
+            
+            BrowserName = global.browserName.toUpperCase();
+            logfilepath = './results/logs/' + TCName + '-' + BrowserName + '-' + currTimeStamp + '.log';
+            log4js.loadAppender('file');
+            log4js.addAppender(log4js.appenders.console());
+            log4js.addAppender(log4js.appenders.file(logfilepath), TCName);
+            logger = log4js.getLogger(TCName);
+            logger.setLevel(global.LOGLEVEL);
+            logger.fatal(TestStepDesc);
+            log4js.clearAppenders();
+            
         }
     },
     /**
@@ -169,7 +169,7 @@ module.exports = {
      * @param {String} message
      * @returns {none}
      */
-    userLogInfo: function (message) {
+     userLogInfo: function (message) {
         setUserLogProperties();
         logger_user.info(global.current_TestCase + ': ' + message);
     },
@@ -179,7 +179,7 @@ module.exports = {
      * @param {String} message
      * @returns {none}
      */
-    userLogDebug: function (message) {
+     userLogDebug: function (message) {
         setUserLogProperties();
         logger_user.debug(global.current_TestCase + ': ' + message);
     },
@@ -189,7 +189,7 @@ module.exports = {
      * @param {String} message
      * @returns {none}
      */
-    userLogWarn: function (message) {
+     userLogWarn: function (message) {
         setUserLogProperties();
         logger_user.warn(global.current_TestCase + ': ' + message);
     },
@@ -199,7 +199,7 @@ module.exports = {
      * @param {String} message
      * @returns {none}
      */
-    userLogError: function (message) {
+     userLogError: function (message) {
         setUserLogProperties();
         logger_user.error(global.current_TestCase + ': ' + message);
     },
@@ -209,7 +209,7 @@ module.exports = {
      * @param {String} message
      * @returns {none}
      */
-    userLogFatal: function (message) {
+     userLogFatal: function (message) {
         setUserLogProperties();
         logger_user.fatal(global.current_TestCase + ': ' + message);
     },
@@ -220,7 +220,7 @@ module.exports = {
  * @param {none} none No Params required
  * @returns {none}
  */
-function  setUserLogProperties() {
+ function  setUserLogProperties() {
     log4js.clearAppenders();
     var currTimeStamp = global.TIMESTAMP;
     logfilepath_user = './results/logs/userLogs' + '--' + new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate() + currTimeStamp + '.log';
