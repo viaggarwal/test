@@ -11,4 +11,10 @@ describe('paytmDuplicatePage', function () {
         appLogger.Log("************************ " + __filename + "***************************");
         paytmPage.failingPage();
     });
+
+    it('paytmDuplicatePage', function () {
+        appLogger.Log("************************ paytmDuplicatePage ***************************");
+        appLogger.Log("************************ " + __filename + "***************************");
+        paytmPage.failingPage();
+    });
 });
