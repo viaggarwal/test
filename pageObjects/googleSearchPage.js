@@ -4,7 +4,7 @@
 /* The Page Object Representation of the Alarm Type Page.
  */
 'use strict';
-
+var locator = require('../library/Locator');
 //**************************** Required web data*************************************//
 var genericData = requireData('genericData'),
 //**************************** Page Objects *************************************//
@@ -17,9 +17,9 @@ var genericData = requireData('genericData'),
 module.exports = {
     performGoogleSearch: function(searchText){
         actions.Get(genericData.Google.URL);
-        actions.SetText(googleSearchTextField,"SearchText","Entering text in google search");
+        /*actions.SetText(googleSearchTextField,"SearchText","Entering text in google search");
         Medium_Wait();
-        actions.Click(googleSearchButton);
+        actions.Click(googleSearchButton);*/
         //return requirePage('searchResultPage');
     }
 
