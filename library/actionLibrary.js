@@ -73,13 +73,25 @@ module.exports = {
         });
     },
 
-    GetText: function (locator,logname) {
+    GetText: function (locator,logname,callback) {
         element(locator).getText().then(function (text) {
-            //reporter.appendTest('Get Text', 'Performed Get Text from' + logname + ' Text is: '+text, "PASS");
-            return text;
+            reporter.appendTest('Get Text', 'Performed Get Text from' + logname + ' Text is: '+text, "PASS");
+            // return text;
+            callback(text);
         }, function (err) {
-            //reporter.appendTest('Get Text', 'Performing Get Text: ' + locator, "FAIL");
+            reporter.appendTest('Get Text', 'Performing Get Text: ' + locator, "FAIL");
             expect(false).toReport(true, "Unable to perform GetText operation because of " + err.message);
+        });
+    },
+
+    GetAttribute: function (locator,attributeName,logname,callback) {
+        element(locator).getAttribute(attributeName).then(function (value) {
+            reporter.appendTest('Get Attribute', 'Performed Get Attribute from' + logname + 'on Attribute:'+attributeName+' and Attribute Value is: '+value, "PASS");
+            // return value;
+            callback(value);
+        }, function (err) {
+            reporter.appendTest('Get Attribute', 'Performing Get Attribute: ' + locator+ 'on Attribute:'+attributeName, "FAIL");
+            expect(false).toReport(true, "Unable to perform GetAttribute operation because of " + err.message);
         });
     },
 
