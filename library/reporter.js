@@ -55,7 +55,7 @@ var Case_NO = 0;
 var Total_Failed = 0;
 var SUMM_Elapsed_Time;
 var tmpBrowName = "";
-var Final_Result;
+var Final_Result = "";
 
 var data1 = ["Host Name", "Environment URL", "Suite Executed", "Browser", "Date & Time", "OS", "TCID", "Desc", "Action", "Status", "Result", "Timestamp"] + '\n';
 var OS = 'Platform';
@@ -76,8 +76,8 @@ module.exports = {
         detailedReport(csv, true);
         report_name = "details_result_report_" + csv + "_" + timeStamp + ".htm";
        // console.log("**********failArr********", global.failArr);
-       summaryReport(csv, report_name).then(function () {
-        console.log('******summaryReport ENDS******');
+        summaryReport(csv, report_name).then(function () {
+            console.log('******summaryReport ENDS******');
             //console.log('*********email content********',email_content)
             emailSumReport(csv, report_name, email_content).then(function () {
                 console.log('******emailReport ENDS******');
@@ -108,7 +108,10 @@ generateSubReport: function (csv) {
        var jpath = './results/GallopReport/'+global.SUITENAME+'-'+global.TIMESTAMP+'/' + currentStep + '.png';
        storeScreenShot(png, jpath);
    },
-   appendTest: function (TestStep, TestStepDesc, Result) {
+   /*appendTest: function (TestStep, TestStepDesc, Result) {
+       console.log("===============================");
+       console.log(Result);
+       console.log("===============================");
     if (TestStep.indexOf(',') > -1) {
         TestStep = TestStep.split(',').join('');
         TestStep = TestStep.split('\n').join('');
@@ -127,6 +130,7 @@ generateSubReport: function (csv) {
             var dt=[global.current_TestCase.split("_")[0]] + '\n';
             fs.appendFile('./results/GallopReport/report_assets/CSV_FailedTestList.csv',dt, function (err) {
                 if (err) throw err;
+                console.log("sdfsfsdfsdffffffffffffffffffffffff",err);
             });
         }
         
@@ -142,6 +146,7 @@ generateSubReport: function (csv) {
 
              });
         } else {
+            console.log("sfsfsf");
             Final_Result = Result;
         }
         OS = global.platform.toUpperCase();
@@ -164,11 +169,15 @@ generateSubReport: function (csv) {
                 });
             }
             else {
-                browser.getWindowHandle().then(function (val) {
+                browser.getWindowHandle().then(function (val) {                    
                     var win = val.substring(9, parseInt(val.length));
-                    data1 = [global.browserName.toUpperCase(), global.process.env.COMPUTERNAME, OS, global.current_TestCase.split("_")[0], global.current_TestCase.split("_")[1], TestStep, Final_Result, TestStepDesc, currentTimeStampDiff(),  global.AppURL, global.suite_To_Be_Executed, 'details_result_report_TS_' + win] + '\n';
-                    //data1 = [caps.caps_.browserName.toUpperCase(), global.process.env.COMPUTERNAME, OS, global.current_TestCase.split("_")[0], global.current_TestCase.split("_")[1], TestStep, Final_Result, TestStepDesc, currentTimeStampDiff(), global.amkaiURL, global.suite_To_Be_Executed] + '\n';
 
+                    data1 = [global.browserName.toUpperCase(), global.process.env.COMPUTERNAME, OS, global.current_TestCase.split("_")[0], global.current_TestCase.split("_")[1], TestStep, Final_Result, TestStepDesc, currentTimeStampDiff(),  global.AppURL, global.suite_To_Be_Executed, 'details_result_report_TS_' + win] + '\n';
+
+                    //data1 = [caps.caps_.browserName.toUpperCase(), global.process.env.COMPUTERNAME, OS, global.current_TestCase.split("_")[0], global.current_TestCase.split("_")[1], TestStep, Final_Result, TestStepDesc, currentTimeStampDiff(), global.amkaiURL, global.suite_To_Be_Executed] + '\n';
+                    console.log("==========================================");
+                    console.log("Final_Result==========="+Final_Result);
+                    console.log("==========================================");
                     append_data_into_csv(data1, 'TS_' + win);
                     logger.Log(TestStepDesc);
                 });
@@ -176,8 +185,61 @@ generateSubReport: function (csv) {
             
             Final_Result = '';
 
+        }*/
+    appendTest: function (TestStep, TestStepDesc, Result) {
+        OS = global.platform.toUpperCase();
+        if (TestStep.indexOf(',') > -1) {
+            TestStep = TestStep.split(',').join('');
+            TestStep = TestStep.split('\n').join('');
         }
+        if (TestStepDesc.indexOf(',') > -1) {
+            TestStepDesc = TestStepDesc.split(',').join('');
+            TestStepDesc = TestStepDesc.split('\n').join('');
+        }
+        if (Result.indexOf('FAIL') > -1) {            
+            var dt=[global.current_TestCase.split("_")[0]] + '\n';
+            fs.appendFile('./results/GallopReport/report_assets/CSV_FailedTestList.csv',dt, function (err) {
+                if (err) throw err;
+            });
+            browser.takeScreenshot().then(function (png) {
+                var rand = Math.floor((Math.random() * 10000) + 1);
+                var ScrShotFileName = 'Scr_' + rand + '_' + currentTimeStamp();
+                var jpath = './results/GallopReport/'+global.SUITENAME+'-'+global.TIMESTAMP+'/' + ScrShotFileName + '.png';
+                storeScreenShot(png, jpath);
+                Final_Result = Result + ':' + ScrShotFileName + '.png';
+            });
+            browser.getWindowHandle().then(function (val) {
+                var win = val.substring(9, parseInt(val.length));
+                data1 = [global.browserName.toUpperCase(), global.process.env.COMPUTERNAME, OS, global.current_TestCase.split("_")[0], global.current_TestCase.split("_")[1], TestStep, Final_Result, TestStepDesc, currentTimeStampDiff(), global.AppURL, global.suite_To_Be_Executed, 'details_result_report_TS_' + win] + '\n';
+                //data1 = [caps.caps_.browserName.toUpperCase(), global.process.env.COMPUTERNAME, OS, global.current_TestCase.split("_")[0], global.current_TestCase.split("_")[1], TestStep, Final_Result, TestStepDesc, currentTimeStampDiff(), global.amkaiURL, global.suite_To_Be_Executed] + '\n';
+                append_data_into_csv(data1, 'TS_' + win);
+                //mergingSubFilesIntoCSV('TS_' + win);
+                logger.Log(TestStepDesc);
+                console.log('+++++++++++FAIL++++++++++++');
+            }).then(function () {
+                if (global.quitOnFailure) {
+                    browser.close();
+                }
+            });
+        }
+        else {
+            browser.getWindowHandle().then(function (val) {
+                var win = val.substring(9, parseInt(val.length));
+                console.log("sfsfsf");
+                Final_Result = Result;
+                console.log(Result);
+                console.log(Final_Result);
+                data1 = [global.browserName.toUpperCase(), global.process.env.COMPUTERNAME, OS, global.current_TestCase.split("_")[0], global.current_TestCase.split("_")[1], TestStep, Final_Result, TestStepDesc, currentTimeStampDiff(),  global.AppURL, global.suite_To_Be_Executed, 'details_result_report_TS_' + win] + '\n';
+                console.log("==========================================");
+                console.log("Final_Result==========="+Final_Result+"============");
+                console.log("==========================================");
+                append_data_into_csv(data1, 'TS_' + win);
+                logger.Log(TestStepDesc);
+            });
+        }
+        Final_Result = '';
     }
+}
     function mergingSubFilesIntoCSV(csv) {
         var Browser_Name;
 
@@ -204,6 +266,7 @@ generateSubReport: function (csv) {
 function append_data_into_csv(data, file_name) {
     fs.appendFile('./results/GallopReport/report_assets/' + file_name + '.csv', data, function (err) {
         if (err) throw err;
+        console.log(data);
     });
 
 }
