@@ -25,7 +25,7 @@ exports.config = {
         testCasesTest: [
         'testCases/*.js'
         ],
-        customTest:['testCases/tcverify.js'],
+        customTest:['testCases/*.js'],
         smokeTest:['path']
     },
     // A callback function called once configs are read but before any environment
