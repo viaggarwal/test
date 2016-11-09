@@ -1,21 +1,33 @@
 /*jslint node: true, stupid: true*/
 /*global jasmine2, jasmine, browser, by, requireUtils, $   */
 'use strict';
+var jasminePtor = require('./library/jasminePtorFailfast');
+var CSV_Processor = require('./library/CSV_Processor');
 var basePath = __dirname,
-    today = new Date(),
-    fs = require('fs'),
-    PageObjectsPath = basePath + '/pageObjects/',
-    testDataObjectsPath = basePath + '/testDataObjects/';
-    global.new_suite = true;
-    global.LOGLEVEL = 'DEBUG';
-    global.quitOnFailure = false;
-    global.current_TestCase = "";
-    global.current_Suite = "";
-    global.suite_To_Be_Executed = "Demo Suite";
+today = new Date(),
+fs = require('fs'),
+PageObjectsPath = basePath + '/pageObjects/',
+testDataObjectsPath = basePath + '/testDataObjects/';
+global.new_suite = true;
+global.LOGLEVEL = 'DEBUG';
+global.quitOnFailure = false;
+global.current_TestCase = "";
+global.current_Suite = "";
+global.suite_To_Be_Executed = "Demo Suite";
+global.csvProcessor = new CSV_Processor();
 
 exports.config = {
+    seleniumAddress: 'http://localhost:4444/wd/hub',
     framework: 'jasmine2',
     rootElement: "",
+    suites: {
+        beforeSuiteTest: 'testCases/beforeSuite/*.js',
+        testCasesTest: [
+        'testCases/*.js'
+        ],
+        customTest:['testCases/*.js'],
+        smokeTest:['path']
+    },
     // A callback function called once configs are read but before any environment
     // setup. This will only run once, and before onPrepare.
     // You can specify a file containing code to run by setting beforeLaunch to
@@ -25,6 +37,10 @@ exports.config = {
         // and globals from the test framework will NOT be available. The main
         // purpose of this function should be to bring up test dependencies.
         console.log("BEFORE LAUNCH");
+        global.csvProcessor.initialize('./testDataObjects/testData.csv');
+        global.csvProcessor.readDatafromFile(function(data){
+            global.csvProcessor.initData(data);
+        });
     },
     // A callback function called once configs are read but before any environment
     // setup. This will only run once, and before onPrepare.
@@ -34,10 +50,11 @@ exports.config = {
         /**
          * global parameter declarations
          */
-        browser.ignoreSynchronization = true;
-        browser.driver.manage().window().maximize();
-        browser.manage().timeouts().pageLoadTimeout(180000);
-        params: {
+         browser.ignoreSynchronization = true;
+         browser.driver.manage().window().maximize();
+         browser.manage().timeouts().pageLoadTimeout(180000);
+         browser.manage().deleteAllCookies();
+         params: {
             APPNAME: ''
             SUITENAME: ''
         }
@@ -46,7 +63,7 @@ exports.config = {
         global.requireUtils = function (relativePath) {
             return require(basePath + '/utils/' + relativePath + '.js');
         };
-        global.TIMESTAMP = today.getMonth() + '' + today.getDate() + '' + today.getHours() + '' + today.getMinutes() + '' + today.getSeconds();
+        global.TIMESTAMP = (today.getMonth()+1) + '' + today.getDate() + '' + today.getHours() + '' + today.getMinutes() + '' + today.getSeconds();
 
         global.currentTimeStampDiff = function () {
             var today = new Date();
@@ -64,30 +81,28 @@ exports.config = {
             var timeStamp = today.getMonth() + 1 + '-' + today.getDate() + '-' + today.getFullYear() + '-' + today.getHours() + 'H_' + today.getMinutes() + 'M_' + today.getSeconds() + 'S';
             return timeStamp;
         };
+       global.REPORT_DIR = basePath + '/results/JasmineReport/' + global.SUITENAME + '-' + global.TIMESTAMP + '/';
+       global.GALLOP_REPORT_DIR = basePath + '/results/GallopReport/' + global.SUITENAME + '-' + global.TIMESTAMP + '/';
 
-       // global.appLogger = requireUtils('logger').Info("./results", global.SUITENAME, global.TIMESTAMP);
-        global.appLogger = requireUtils('logger');
-        global.REPORT_DIR = basePath + '/results/JasmineReport/' + global.SUITENAME + '-' + global.TIMESTAMP + '/';
-        global.GALLOP_REPORT_DIR = basePath + '/results/GallopReport/' + global.SUITENAME + '-' + global.TIMESTAMP + '/';
+       var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter'),
+       ScreenShotReporter = require('protractor-jasmine2-screenshot-reporter'),
+       jasmineReporters = require('jasmine-reporters'),
+       SpecReporter = require('jasmine-spec-reporter');
+       require('fs').mkdir(REPORT_DIR, function () {
+        console.log("Results directory created!");
+    });
+       require('fs').mkdir(GALLOP_REPORT_DIR, function () {
+        console.log("Results directory created!");
+    });
 
-        var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter'),
-            ScreenShotReporter = require('protractor-jasmine2-screenshot-reporter'),
-            jasmineReporters = require('jasmine-reporters'),
-            SpecReporter = require('jasmine-spec-reporter');
-            // failWhale = require('protractor-jasmine2-fail-whale');
-        require('fs').mkdir(REPORT_DIR, function () {
-            console.log("Results directory created!");
+        //Ravinder------------
+        jasmine.getEnv().addReporter(new jasminePtor().launch());
+
+        browser.driver.getCapabilities().then(function (caps) {
+            global.browserName = caps.get('browserName');
+            global.platform = caps.get('platform');
         });
-        require('fs').mkdir(GALLOP_REPORT_DIR, function () {
-            console.log("Results directory created!");
-        });
-        // jasmine.getEnv().addReporter(new failWhale({
-        //     showStack: true,
-        //     screenshot: true,
-        //     directory: global.REPORT_DIR,
-        //     keepWebDriverAlive: false,
-        // }));
-        //stopSpecOnExpectationFailure: true;
+
         jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
             consolidateAll: true,
             savePath: global.REPORT_DIR,
@@ -154,36 +169,6 @@ exports.config = {
             var int = 3 * 1000;
             browser.sleep(int);
         };
-        global.locatorCss = function (byCss) {
-            return by.css(byCss);
-        };
-        global.locatorId = function (byId) {
-            return by.id(byId);
-        };
-        global.locatorCssText = function (byclass, byCssText) {
-            return by.cssContainingText(byclass, byCssText);
-        };
-        global.locatorXpath = function (byXpath) {
-            return by.xpath(byXpath);
-        };
-        global.locatorName = function (byName) {
-            return by.name(byName);
-        };
-        global.locatorModel = function (byModel) {
-            return by.model(byModel);
-        };
-        global.locatorBinding = function (byBinding) {
-            return by.binding(byBinding);
-        };
-        global.locatorLinkText = function (byLinkText) {
-            return by.linkText(byLinkText);
-        };
-        global.locatorRepeater = function (byRepeater) {
-            return by.repeater(byRepeater);
-        };
-        global.locatorbuttonText = function (byButtonText) {
-            return by.buttonText(byButtonText);
-        };
         global.reporter = requireLibrary('reporter');
         global.actions = requireLibrary('actionLibrary');
         global.genericData = requireData('genericData');
@@ -193,9 +178,31 @@ exports.config = {
         global.BROWSER_TO_BE_EXECUTED = 'CHROME';
         reporter.reportInitialization();
 
-       browser.getWindowHandle().then(function (val) {
+        browser.getWindowHandle().then(function (val) {
             global.winHandle = val;
-       });
+        });
+
+        var disableNgAnimate = function() {
+            angular.module('disableNgAnimate', []).run(function($animate) {
+                $animate.enabled(false);
+            });
+        };
+        var disableCssAnimate = function() {
+            angular.module('disableCssAnimate', []).run(function() {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = '* {' +
+                '-webkit-transition: none !important;' +
+                '-moz-transition: none !important' +
+                '-o-transition: none !important' +
+                '-ms-transition: none !important' +
+                'transition: none !important' +
+                '}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            });
+        };
+        browser.addMockModule('disableCssAnimate', disableCssAnimate);
+        browser.addMockModule('disableNgAnimate', disableNgAnimate);
     },
     jasmineNodeOpts: {
         showColors: true,
@@ -213,10 +220,6 @@ exports.config = {
         var win = global.winHandle.substring(9, parseInt(global.winHandle.length));
         reporter.generateSubReport('TS_' + win);
         console.log("END - ON COMPLETE");
-       /* browser.getWindowHandle().then(function (val) {
-            var win = val.substring(9, parseInt(val.length));
-            reporter.generateSubReport('TS_' + win);
-        });*/
     },
     // A callback function called once all tests have finished running and
     // the WebDriver instance has been shut down. It is passed the exit code
